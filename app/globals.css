@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-surface: #0F0F11;
+  --color-surface-raised: #17171A;
+  --color-surface-overlay: #1E1E24;
+  --color-surface-border: #2A2A35;
+
+  --color-accent: #7C6AF7;
+  --color-accent-light: #9D8FFF;
+  --color-accent-glow: rgba(124, 106, 247, 0.15);
+  --color-accent-meta: #1877F2;
+  --color-accent-google: #4285F4;
+  --color-accent-naver: #03C75A;
+
+  --color-text-primary: #F2F2F5;
+  --color-text-secondary: #8E8EA0;
+  --color-text-muted: #52525E;
+
+  --font-sans: var(--font-geist-sans), Pretendard, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  --animate-fade-in: fadeIn 0.2s ease-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-shimmer: shimmer 1.5s infinite;
+
+  --sidebar-width: 240px;
+  --sidebar-collapsed: 64px;
+  --header-height: 56px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #17171A; }
+::-webkit-scrollbar-thumb { background: #2A2A35; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #7C6AF7; }
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #17171A 25%, #1E1E24 50%, #17171A 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(30, 30, 36, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 42, 53, 0.8);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #7C6AF7 0%, #9D8FFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #7C6AF7;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
