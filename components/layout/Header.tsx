@@ -32,7 +32,7 @@ export default function Header() {
       }}
     >
       <div className="flex-1 min-w-0">
-        <h1 className="text-sm font-semibold text-[#F2F2F5] truncate">{page.title}</h1>
+        <h1 className="text-base font-bold text-[#F2F2F5] truncate">{page.title}</h1>
         {page.description && (
           <p className="text-xs text-[#52525E] truncate">{page.description}</p>
         )}

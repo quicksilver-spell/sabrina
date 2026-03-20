@@ -24,8 +24,8 @@ export default function AnalysisPage({ platform }: { platform: Platform }) {
           {config.icon}
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-[#F2F2F5]">{config.name} 성과 분석</h2>
-          <p className="text-xs text-[#52525E]">
+          <h2 className="text-2xl font-bold text-[#F2F2F5]">{config.name} 성과 분석</h2>
+          <p className="text-sm text-[#52525E] mt-0.5">
             {metrics ? `${metrics.summary.totalRows.toLocaleString()}개 소재 분석됨` : '리포트 파일을 업로드해주세요'}
           </p>
         </div>

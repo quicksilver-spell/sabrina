@@ -12,12 +12,12 @@ interface MetricCardProps {
 function MetricCard({ label, value, sub, color }: MetricCardProps) {
   return (
     <div
-      className="rounded-xl p-4 flex flex-col gap-1"
+      className="rounded-xl p-5 flex flex-col gap-1.5"
       style={{ background: '#17171A', border: '1px solid #2A2A35' }}
     >
       <p className="text-xs text-[#52525E] uppercase tracking-wide">{label}</p>
       <p
-        className="text-2xl font-semibold"
+        className="text-3xl font-bold"
         style={{ color: color ?? '#F2F2F5' }}
       >
         {value}
