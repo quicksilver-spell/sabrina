@@ -39,9 +39,25 @@ export default function Header() {
       </div>
 
       {/* Sabrina badge */}
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs" style={{ background: '#1E1E24', border: '1px solid #2A2A35' }}>
-        <span className="w-2 h-2 rounded-full bg-[#7C6AF7] animate-pulse" />
-        <span className="text-[#8E8EA0]">사브리나</span>
+      <div
+        className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium"
+        style={{
+          background: 'linear-gradient(90deg, rgba(92,79,217,0.15) 0%, rgba(157,143,255,0.08) 100%)',
+          border: '1px solid rgba(124,106,247,0.3)',
+        }}
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[#9D8FFF] animate-pulse" style={{ boxShadow: '0 0 6px #7C6AF7' }} />
+        <span
+          style={{
+            background: 'linear-gradient(90deg, #C4B5FD 0%, #F2F2F5 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            letterSpacing: '0.08em',
+          }}
+        >
+          SABRINA
+        </span>
       </div>
     </header>
   )

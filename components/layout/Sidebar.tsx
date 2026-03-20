@@ -42,16 +42,32 @@ export default function Sidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 h-14 border-b border-[#2A2A35]">
+        {/* Logo mark */}
         <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-          style={{ background: 'linear-gradient(135deg, #7C6AF7 0%, #9D8FFF 100%)' }}
+          className="relative w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, #5B4FD9 0%, #9D8FFF 100%)', boxShadow: '0 0 12px rgba(124,106,247,0.5)' }}
         >
-          S
+          {/* Subtle star/sparkle shape */}
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M9 2L10.5 7.5H16L11.5 11L13 16.5L9 13.5L5 16.5L6.5 11L2 7.5H7.5L9 2Z" fill="white" fillOpacity="0.95"/>
+          </svg>
         </div>
         {!collapsed && (
-          <span className="font-semibold text-[#F2F2F5] text-base whitespace-nowrap">
-            사브리나
-          </span>
+          <div className="flex flex-col leading-tight">
+            <span
+              className="font-bold text-sm tracking-wide whitespace-nowrap"
+              style={{
+                background: 'linear-gradient(90deg, #C4B5FD 0%, #F2F2F5 60%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '0.05em',
+              }}
+            >
+              SABRINA
+            </span>
+            <span className="text-[9px] text-[#52525E] tracking-widest uppercase">Ad Creative Platform</span>
+          </div>
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
