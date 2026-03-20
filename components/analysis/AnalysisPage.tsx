@@ -5,6 +5,7 @@ import FileUploadZone from './FileUploadZone'
 import MetricsOverview from './MetricsOverview'
 import { TopCreativesChart, CampaignSpendChart, SpendPieChart } from './PerformanceCharts'
 import AIInsightsPanel from './AIInsightsPanel'
+import CreativeImprovementPanel from './CreativeImprovementPanel'
 import CreativeTable from './CreativeTable'
 
 export default function AnalysisPage({ platform }: { platform: Platform }) {
@@ -46,6 +47,8 @@ export default function AnalysisPage({ platform }: { platform: Platform }) {
           </div>
 
           <AIInsightsPanel platform={platform} />
+
+          <CreativeImprovementPanel platform={platform} />
 
           <CreativeTable rows={report.rows} platform={platform} />
         </>

@@ -19,12 +19,19 @@ const defaultReport = (): PlatformReport => ({
   error: null,
 })
 
+type ImprovementStatus = 'idle' | 'loading' | 'done' | 'error'
+interface ImprovementState {
+  status: ImprovementStatus
+  text: string
+}
+
 interface ReportStore {
   reports: Record<Platform, PlatformReport>
   activePlatform: Platform
   metrics: Record<Platform, PlatformMetrics | null>
   insights: Record<Platform, string>
   insightStatus: Record<Platform, 'idle' | 'loading' | 'done' | 'error'>
+  improvements: Record<Platform, Record<string, ImprovementState>>
   setActivePlatform: (p: Platform) => void
   setReport: (platform: Platform, rows: NormalizedReportRow[], summary: ReportSummary) => void
   setReportStatus: (platform: Platform, status: PlatformReport['status'], error?: string) => void
@@ -33,6 +40,9 @@ interface ReportStore {
   appendInsightChunk: (platform: Platform, chunk: string) => void
   clearInsight: (platform: Platform) => void
   clearReport: (platform: Platform) => void
+  setImprovementStatus: (platform: Platform, rowId: string, status: ImprovementStatus) => void
+  appendImprovementChunk: (platform: Platform, rowId: string, chunk: string) => void
+  clearImprovement: (platform: Platform, rowId: string) => void
 }
 
 export const useReportStore = create<ReportStore>((set) => ({
@@ -45,6 +55,7 @@ export const useReportStore = create<ReportStore>((set) => ({
   metrics: { meta: null, google: null, naver: null },
   insights: { meta: '', google: '', naver: '' },
   insightStatus: { meta: 'idle', google: 'idle', naver: 'idle' },
+  improvements: { meta: {}, google: {}, naver: {} },
 
   setActivePlatform: (p) => set({ activePlatform: p }),
 
@@ -83,5 +94,41 @@ export const useReportStore = create<ReportStore>((set) => ({
     set((s) => ({
       reports: { ...s.reports, [platform]: defaultReport() },
       metrics: { ...s.metrics, [platform]: null },
+    })),
+
+  setImprovementStatus: (platform, rowId, status) =>
+    set((s) => ({
+      improvements: {
+        ...s.improvements,
+        [platform]: {
+          ...s.improvements[platform],
+          [rowId]: { status, text: s.improvements[platform][rowId]?.text ?? '' },
+        },
+      },
+    })),
+
+  appendImprovementChunk: (platform, rowId, chunk) =>
+    set((s) => ({
+      improvements: {
+        ...s.improvements,
+        [platform]: {
+          ...s.improvements[platform],
+          [rowId]: {
+            status: s.improvements[platform][rowId]?.status ?? 'loading',
+            text: (s.improvements[platform][rowId]?.text ?? '') + chunk,
+          },
+        },
+      },
+    })),
+
+  clearImprovement: (platform, rowId) =>
+    set((s) => ({
+      improvements: {
+        ...s.improvements,
+        [platform]: {
+          ...s.improvements[platform],
+          [rowId]: { status: 'idle', text: '' },
+        },
+      },
     })),
 }))

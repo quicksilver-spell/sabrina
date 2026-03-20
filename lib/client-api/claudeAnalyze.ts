@@ -3,8 +3,8 @@ import { PlatformMetrics } from '@/lib/types/report.types'
 import { buildAnalysisPrompt } from '@/lib/analyzers/claude-prompt-builder'
 import { getApiKey } from './apiKeys'
 
-export async function streamClaudeAnalysis(
-  metrics: PlatformMetrics,
+export async function streamClaudeText(
+  prompt: string,
   onChunk: (text: string) => void,
   onDone: () => void,
   onError: (err: string) => void
@@ -14,8 +14,6 @@ export async function streamClaudeAnalysis(
     onError('Anthropic API 키가 설정되지 않았습니다. 설정 페이지에서 입력해주세요.')
     return
   }
-
-  const prompt = buildAnalysisPrompt(metrics)
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -63,4 +61,14 @@ export async function streamClaudeAnalysis(
   } catch (err) {
     onError(err instanceof Error ? err.message : '알 수 없는 오류')
   }
+}
+
+export async function streamClaudeAnalysis(
+  metrics: PlatformMetrics,
+  onChunk: (text: string) => void,
+  onDone: () => void,
+  onError: (err: string) => void
+) {
+  const prompt = buildAnalysisPrompt(metrics)
+  return streamClaudeText(prompt, onChunk, onDone, onError)
 }
